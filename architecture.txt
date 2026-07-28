@@ -250,3 +250,32 @@ Game Update
 ├── Remove Dead Bullets
 │
 └── Check Game Over
+
+
+Game
+│
+├── Event System
+├── Grid
+├── PlantManager
+│      ├── Place Plants
+│      ├── Update Plants
+│      └── Draw Plants
+│
+├── ZombieManager
+│      ├── Spawn
+│      ├── Update
+│      └── Draw
+│
+├── BulletManager
+│      ├── Spawn
+│      ├── Update
+│      └── Draw
+│
+├── SunManager
+│      ├── Spawn
+│      ├── Collect
+│      └── Draw
+│
+└── CollisionManager
+       ├── Bullet ↔ Zombie
+       └── Zombie ↔ Plant
