@@ -19,6 +19,10 @@ class Zombies
 	Texture zombiesTex;
 	unique_ptr<Sprite>zombie;
 	vector<Sprite>zombies;
+	vector<int>hpOfzombies;
+
+	RectangleShape hpBar;
+	vector<RectangleShape>hpBarForAllZombies;
 
 	int zombiesSpawnTime;
 	int maxHpOfZombie;
@@ -29,6 +33,8 @@ public:
 	void initializeTextureForZombies();
 	void drawZombies(RenderWindow&);
 	void spawningOfZombies(RenderWindow&);
+	vector<Sprite>& getZombies();
+	vector<int>& getHpOfZombies();
 
 
 };

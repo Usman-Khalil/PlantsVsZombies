@@ -21,6 +21,7 @@ class Game
 
 	vector<Sprite>flowers;
 	vector<Sprite>placedPlants;
+	vector<char>genreOfPlacedPlants;
 	vector<Sprite>greenBullets;
 	vector<Sprite>blueBullets;
 	vector<Sprite>sunFlower;
@@ -35,6 +36,8 @@ class Game
 	int sunSpawnTime;
 	bool activeStatus;
 	char selectedPlant;
+	bool playerStatus;
+	int noOfZombiesDie;
 
 public:
 
@@ -47,9 +50,14 @@ public:
 	void previewPlant();
 	void placePlants(Vector2f);
 	void firing();
-	void throwGreenBalls();
-	void throwBlueBalls();
-	void throwSuns();
+	void throwGreenBalls(RenderWindow&);
+	void throwBlueBalls(RenderWindow&);
+	void throwSuns(RenderWindow&);
+	void zombiesVsPlants();
+	void zombiesVsGreenBullets();
+	void zombiesVsBlueBullets();
+	void isPlayerAlive();
+	int getNumberOfDieZombies();
 };
 
 #endif

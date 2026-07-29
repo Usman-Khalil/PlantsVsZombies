@@ -23,7 +23,7 @@ Projectiles::Projectiles() {
 
 void Projectiles::initializeTextureOfProjectiles() {
 
-	if (!greenBulletTex.loadFromFile("Images/green_ball.png"))
+	if (!greenBulletTex.loadFromFile("Images/green_ball2.png"))
 		throw "could not load green_ball.png from the file";
 
 	greenBullet = make_unique<Sprite>(greenBulletTex);
@@ -39,7 +39,8 @@ void Projectiles::initializeTextureOfProjectiles() {
 		throw "could not load sun.png from the file";
 
 	sunFlower = make_unique<Sprite>(sunFlowerTex);
-	sunFlower->setScale({ 0.015 , 0.015 });
+	sunFlower->setScale({ 0.012 , 0.012 });
+	sunFlower->setColor(Color(255, 255, 255, 200));
 
 }
 
