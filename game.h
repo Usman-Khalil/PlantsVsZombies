@@ -3,7 +3,8 @@
 #include <iostream>
 #include "SFML\Graphics.hpp"
 #include "SFML\Window.hpp"
-#include "SFML\System.hpp" 
+#include "SFML\System.hpp"  
+#include "SFML\Audio.hpp"
 #include "Lawn.h"
 #include "Plant.h"
 #include <vector>
@@ -17,6 +18,14 @@ class Game
 	Texture activePlantTex;
 
 	Font font;
+
+	Music placePlantMusic;
+	Music zombieVsPlantMusic;
+	Music zombieVsProjectileMusic;
+	Music shootMusic;
+	Music collectFlowersMusic;
+	Music produceFlowersMusic;
+	Music looseMusic;
 
 	unique_ptr<Sprite>flower;
 	unique_ptr<Sprite>activePlant;
@@ -41,6 +50,7 @@ class Game
 	char selectedPlant;
 	bool playerStatus;
 	int noOfZombiesDie;
+	bool musicPlayed;
 
 public:
 
@@ -49,6 +59,7 @@ public:
 	void collectFlowers(Vector2f);
 	void initializeGame(RenderWindow&);
 	void initializeGameObjects();
+	void loadMusicFromFIle();
 	void selectingPlant(Vector2f);
 	void previewPlant();
 	void placePlants(Vector2f);

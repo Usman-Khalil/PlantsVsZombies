@@ -1,7 +1,8 @@
 #include <iostream>
 #include "SFML\Graphics.hpp"
 #include "SFML\Window.hpp"
-#include "SFML\System.hpp" 
+#include "SFML\System.hpp"  
+#include "SFML\Audio.hpp"
 #include "Lawn.h"
 #include "Plant.h"
 #include "game.h"
@@ -61,7 +62,7 @@ void Zombies::spawningOfZombies(RenderWindow& window) {
 		else
 			zombie->setPosition({ static_cast<float>(window.getSize().x) , 580 });
 		
-		hpBar.setPosition({ zombie->getPosition().x , zombie->getPosition().y - 10 });
+		hpBar.setPosition({ zombie->getPosition().x , zombie->getPosition().y - 15 });
 		hpBarForAllZombies.push_back(hpBar);
 		zombies.push_back(*zombie);
 		hpOfzombies.push_back(maxHpOfZombie);
@@ -89,4 +90,8 @@ vector<int>& Zombies::getHpOfZombies() {
 
 vector<RectangleShape>& Zombies::getHpBarOfZombies() {
 	return hpBarForAllZombies;
+}
+
+int& Zombies::getZombieSpawntime() {
+	return maxSpawnTime;
 }

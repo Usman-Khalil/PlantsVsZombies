@@ -2,6 +2,7 @@
 #include "SFML\Graphics.hpp"
 #include "SFML\Window.hpp"
 #include "SFML\System.hpp" 
+#include "SFML\Audio.hpp" 
 #include "Lawn.h"
 #include "Plant.h"
 #include "game.h"
@@ -34,6 +35,7 @@ Game::Game() {
 	noOfZombiesDie = 0;
 	gameOverText = nullptr;
 	activeStatus = false;
+	musicPlayed = false;
 }
 
 void Game::initializeGame(RenderWindow& window1) {
@@ -48,6 +50,7 @@ void Game::initializeGame(RenderWindow& window1) {
 	zombie.initializeTextureForZombies();
 	projectile.initializeTextureOfProjectiles();
 	initializeGameObjects();
+	loadMusicFromFIle();
 
 	RenderWindow window(VideoMode({ 1300 , 700 }), "Plant_VS_Zombies");
 	window.setFramerateLimit(60);
@@ -115,7 +118,10 @@ void Game::initializeGame(RenderWindow& window1) {
 
 		}
 		else {
-
+			if (!musicPlayed) {
+				looseMusic.play();
+				musicPlayed = true;
+			}
 			gameOverText->setPosition({ static_cast<float>(window.getSize().x / 2) , static_cast<float>(window.getSize().y / 2) });
 			window.draw(*gameOverText);
 		}
@@ -139,11 +145,36 @@ void Game::initializeGameObjects() {
 
 }
 
+void Game::loadMusicFromFIle() {
+
+
+	if (!placePlantMusic.openFromFile("Music/placePlant.ogg"))
+		throw "could not open placePlant.ogg from the file";
+
+	if (!zombieVsPlantMusic.openFromFile("Music/zombieVsPlant.ogg"))
+		throw "could not open zombieVsPlant.ogg from the file";
+
+	if (!shootMusic.openFromFile("Music/shoot.mp3"))
+		throw "could not open shoot.mp3 from the file";
+
+	if (!zombieVsProjectileMusic.openFromFile("Music/zombieVsProjectile.ogg"))
+		throw "could not open zombieVsProjectile.ogg from the file";
+
+	if (!collectFlowersMusic.openFromFile("Music/collectFlowers.ogg"))
+		throw "could not open collectFlowers.ogg from the file";
+
+	if (!produceFlowersMusic.openFromFile("Music/produceSun.ogg"))
+		throw "could not open produceSun.ogg from the file";
+
+	if (!looseMusic.openFromFile("Music/losemusic.ogg"))
+		throw "could not open losemusic.ogg from the file";
+}
+
 void Game::droppingFlowers(RenderWindow& window) {
 
-	if (flowerSpawnTime < 500)
+	if (flowerSpawnTime < 400)
 		flowerSpawnTime++;
-	if (flowerSpawnTime >= 500) {
+	if (flowerSpawnTime >= 400) {
 
 		flower->setPosition({ 300 + static_cast<float>(rand() % (window.getSize().x - 100)) , 0 });
 		flowers.push_back(*flower);
@@ -212,6 +243,7 @@ void Game::placePlants(Vector2f pos) {
 	if (activePlant == nullptr)
 		return;
 
+	placePlantMusic.play();
 	activePlant->setPosition(pos);
 	placedPlants.push_back(*activePlant);
 	genreOfPlacedPlants.push_back(selectedPlant);
@@ -231,13 +263,13 @@ void Game::placePlants(Vector2f pos) {
 	}
 	plant.amount->setString(to_string(plant.numOfSunFlower));
 	selectedPlant = 'N';
-
 }
 
 void Game::collectFlowers(Vector2f pos) {
 	for (int i = 0; i < flowers.size(); i++) {
 
 		if (flowers[i].getGlobalBounds().contains(pos)) {
+			collectFlowersMusic.play();
 			flowers.erase(flowers.begin() + i);
 			plant.numOfSunFlower += 25;
 			plant.amount->setString(to_string(plant.numOfSunFlower));
@@ -255,6 +287,7 @@ void Game::throwGreenBalls(RenderWindow& window) {
 		for (int i = 0; i < placedPlants.size(); i++) {
 			if (genreOfPlacedPlants[i] == 'G')
 			{
+				shootMusic.play();
 				projectile.getGreenBullet().setPosition({ placedPlants[i].getPosition().x + 40 , placedPlants[i].getPosition().y });
 				greenBullets.push_back(projectile.getGreenBullet());
 			}
@@ -266,10 +299,7 @@ void Game::throwGreenBalls(RenderWindow& window) {
 		greenBullets[i].move({ 2 , 0 });
 
 		if (greenBullets[i].getPosition().x < window.getPosition().x - 400)
-		{
-			cout << "hi";
 			greenBullets.erase(greenBullets.begin() + i);
-		}
 	}
 
 }
@@ -282,6 +312,7 @@ void Game::throwBlueBalls(RenderWindow& window) {
 		for (int i = 0; i < placedPlants.size(); i++) {
 			if (genreOfPlacedPlants[i] == 'B')
 			{
+				shootMusic.play();
 				projectile.getBlueBullet().setPosition({ placedPlants[i].getPosition().x + 40 , placedPlants[i].getPosition().y });
 				blueBullets.push_back(projectile.getBlueBullet());
 			}
@@ -305,6 +336,7 @@ void Game::throwSuns(RenderWindow& window) {
 		for (int i = 0; i < placedPlants.size(); i++) {
 			if (genreOfPlacedPlants[i] == 'S')
 			{
+				produceFlowersMusic.play();
 				projectile.getSunFlower().setPosition({ placedPlants[i].getPosition().x + 65 , placedPlants[i].getPosition().y + 30 });
 				sunFlower.push_back(projectile.getSunFlower());
 			}
@@ -318,6 +350,7 @@ void Game::throwSuns(RenderWindow& window) {
 			pos.x = Mouse::getPosition().x;
 			pos.y = Mouse::getPosition().y;
 			if (sunFlower[i].getGlobalBounds().contains(pos)) {
+				collectFlowersMusic.play();
 				sunFlower.erase(sunFlower.begin() + i);
 				plant.numOfSunFlower += 25;
 				plant.amount->setString(to_string(plant.numOfSunFlower));
@@ -332,6 +365,7 @@ void Game::zombiesVsPlants() {
 	for (int i = 0; i < placedPlants.size(); i++) {
 		for (int j = 0; j < zombie.getZombies().size(); j++) {
 			if (placedPlants[i].getGlobalBounds().findIntersection(zombie.getZombies()[j].getGlobalBounds())) {
+				zombieVsPlantMusic.play();
 				placedPlants.erase(placedPlants.begin() + i);
 				genreOfPlacedPlants.erase(genreOfPlacedPlants.begin() + i);
 				break;
@@ -346,6 +380,7 @@ void Game::zombiesVsGreenBullets() {
 		for (int j = 0; j < zombie.getZombies().size(); j++) {
 			if (greenBullets[i].getGlobalBounds().findIntersection(zombie.getZombies()[j].getGlobalBounds()))
 			{
+				zombieVsProjectileMusic.play();
 				zombie.getHpOfZombies()[j] -= 5;
 				zombie.getHpBarOfZombies()[j].setSize({ 1.1f * zombie.getHpOfZombies()[j]  , 10 });
 				greenBullets.erase(greenBullets.begin() + i);
@@ -368,6 +403,7 @@ void Game::zombiesVsBlueBullets() {
 		for (int j = 0; j < zombie.getZombies().size(); j++) {
 			if (blueBullets[i].getGlobalBounds().findIntersection(zombie.getZombies()[j].getGlobalBounds()))
 			{
+				zombieVsProjectileMusic.play();
 				zombie.getHpOfZombies()[j] -= 10;
 				zombie.getHpBarOfZombies()[j].setSize({ 1.1f * zombie.getHpOfZombies()[j]  , 10 });
 				blueBullets.erase(blueBullets.begin() + i);
@@ -399,5 +435,7 @@ void Game::updateZombiesSpawnTime() {
 		zombie.getZombieSpawntime() -= 40;
 	else if (noOfZombiesDie == 100)
 		zombie.getZombieSpawntime() -= 70;
+
+	zombie.getZombieSpawntime() = max(300, zombie.getZombieSpawntime());
 }
 
