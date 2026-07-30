@@ -29,7 +29,7 @@ void Zombies::initializeTextureForZombies() {
 	zombie = make_unique<Sprite>(zombiesTex);
 	zombie->setScale({ 0.075 , 0.075 });
 
-	hpBar.setSize({ (float)(2 * maxHpOfZombie) , 10 });
+	hpBar.setSize({ (float)(1.1 * maxHpOfZombie) , 10 });
 	hpBar.setFillColor(Color::Red);
 }
 
@@ -45,21 +45,21 @@ void Zombies::drawZombies(RenderWindow& window) {
 
 void Zombies::spawningOfZombies(RenderWindow& window) {
 
-	if (zombiesSpawnTime < (1000))
+	if (zombiesSpawnTime < (100))
 		zombiesSpawnTime++;
-	if (zombiesSpawnTime >= (1000)) {
+	if (zombiesSpawnTime >= (100)) {
 		
 		int rowNum = rand() % 5;
 		if(rowNum == 0)
-			zombie->setPosition({ static_cast<float>(window.getSize().x) , 40 });
+			zombie->setPosition({ static_cast<float>(window.getSize().x) , 20 });
 		else if (rowNum == 1)
 			zombie->setPosition({ static_cast<float>(window.getSize().x) , 160 });
 		else if (rowNum == 2)
-			zombie->setPosition({ static_cast<float>(window.getSize().x) , 295 });
+			zombie->setPosition({ static_cast<float>(window.getSize().x) , 300 });
 		else if (rowNum == 3)
-			zombie->setPosition({ static_cast<float>(window.getSize().x) , 400 });
+			zombie->setPosition({ static_cast<float>(window.getSize().x) , 440 });
 		else
-			zombie->setPosition({ static_cast<float>(window.getSize().x) , 545 });
+			zombie->setPosition({ static_cast<float>(window.getSize().x) , 580 });
 		
 		hpBar.setPosition({ zombie->getPosition().x , zombie->getPosition().y - 10 });
 		hpBarForAllZombies.push_back(hpBar);
@@ -71,7 +71,8 @@ void Zombies::spawningOfZombies(RenderWindow& window) {
 
 	for (int i = 0; i < zombies.size(); i++) {
 
-		zombies[i].move({ -0.3f,0 });
+		zombies[i].move({ -5.3f,0 });
+		hpBarForAllZombies[i].move({ -5.3f , 0 });
 
 	}
 }
@@ -84,4 +85,8 @@ vector<Sprite>& Zombies::getZombies() {
 vector<int>& Zombies::getHpOfZombies() {
 
 	return hpOfzombies;
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+}             
+
+vector<RectangleShape>& Zombies::getHpBarOfZombies() {
+	return hpBarForAllZombies;
+}

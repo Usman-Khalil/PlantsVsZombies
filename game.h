@@ -16,8 +16,11 @@ class Game
 	Texture flowerTex;
 	Texture activePlantTex;
 
+	Font font;
+
 	unique_ptr<Sprite>flower;
 	unique_ptr<Sprite>activePlant;
+	unique_ptr<Text>gameOverText;
 
 	vector<Sprite>flowers;
 	vector<Sprite>placedPlants;
@@ -49,7 +52,6 @@ public:
 	void selectingPlant(Vector2f);
 	void previewPlant();
 	void placePlants(Vector2f);
-	void firing();
 	void throwGreenBalls(RenderWindow&);
 	void throwBlueBalls(RenderWindow&);
 	void throwSuns(RenderWindow&);
@@ -57,7 +59,6 @@ public:
 	void zombiesVsGreenBullets();
 	void zombiesVsBlueBullets();
 	void isPlayerAlive();
-	int getNumberOfDieZombies();
 };
 
 #endif

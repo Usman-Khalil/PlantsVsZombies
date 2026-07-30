@@ -32,6 +32,8 @@ Game::Game() {
 	selectedPlant = 'N';
 	playerStatus = true;
 	noOfZombiesDie = 0;
+	gameOverText = nullptr;
+	activeStatus = false;
 }
 
 void Game::initializeGame(RenderWindow& window1) {
@@ -52,22 +54,21 @@ void Game::initializeGame(RenderWindow& window1) {
 
 	while (window.isOpen()) {
 
-		if (playerStatus) {
-			while (const optional event = window.pollEvent()) {
-				if (event->is<Event::Closed>())
-					window.close();
-				if (const auto* mousePressed = event->getIf<sf::Event::MouseButtonPressed>())
+		while (const optional event = window.pollEvent()) {
+			if (event->is<Event::Closed>())
+				window.close();
+			if (const auto* mousePressed = event->getIf<sf::Event::MouseButtonPressed>())
+			{
+				if (mousePressed->button == Mouse::Button::Left)
 				{
-					if (mousePressed->button == Mouse::Button::Left)
-					{
-						Vector2f mousePos;
-						mousePos.x = Mouse::getPosition().x;
-						mousePos.y = Mouse::getPosition().y;
-						selectingPlant(mousePos);
-					}
+					Vector2f mousePos;
+					mousePos.x = Mouse::getPosition().x;
+					mousePos.y = Mouse::getPosition().y;
+					selectingPlant(mousePos);
 				}
 			}
-
+		}
+		if (playerStatus) {
 			// Updates Everything here
 
 			droppingFlowers(window);
@@ -111,8 +112,13 @@ void Game::initializeGame(RenderWindow& window1) {
 
 			//
 
-			window.display();
 		}
+		else {
+
+			gameOverText->setPosition({ static_cast<float>(window.getSize().x / 2) , static_cast<float>(window.getSize().y / 2) });
+			window.draw(*gameOverText);
+		}
+		window.display();
 	}
 }
 void Game::initializeGameObjects() {
@@ -123,13 +129,20 @@ void Game::initializeGameObjects() {
 	flower = make_unique<Sprite>(flowerTex);
 	flower->setScale({ 0.01 , 0.01 });
 
+	if (!font.openFromFile("Fonts/Magnificent Nightmare.ttf"))
+		throw "could not load font from the file";
+
+	gameOverText = make_unique<Text>(font, "THE  ZOMBIES \n    ATE YOUR \n     BRAINS!" , 80);
+	gameOverText->setFillColor(Color(225,0, 0 , 255));
+	gameOverText->setOrigin({ gameOverText->getLocalBounds().size.x / 2 , gameOverText->getLocalBounds().size.y / 2 });
+
 }
 
 void Game::droppingFlowers(RenderWindow& window) {
 
-	if (flowerSpawnTime < 600)
+	if (flowerSpawnTime < 500)
 		flowerSpawnTime++;
-	if (flowerSpawnTime >= 600) {
+	if (flowerSpawnTime >= 500) {
 
 		flower->setPosition({ 300 + static_cast<float>(rand() % (window.getSize().x - 100)) , 0 });
 		flowers.push_back(*flower);
@@ -333,10 +346,13 @@ void Game::zombiesVsGreenBullets() {
 			if (greenBullets[i].getGlobalBounds().findIntersection(zombie.getZombies()[j].getGlobalBounds()))
 			{
 				zombie.getHpOfZombies()[j] -= 5;
+				zombie.getHpBarOfZombies()[j].setSize({ 1.1f * zombie.getHpOfZombies()[j]  , 10 });
 				greenBullets.erase(greenBullets.begin() + i);
 				if (zombie.getHpOfZombies()[j] <= 0)
 				{
 					zombie.getZombies().erase(zombie.getZombies().begin() + j);
+					zombie.getHpOfZombies().erase(zombie.getHpOfZombies().begin() + j);
+					zombie.getHpBarOfZombies().erase(zombie.getHpBarOfZombies().begin() + j);
 					noOfZombiesDie++;
 				}
 				break;
@@ -352,10 +368,13 @@ void Game::zombiesVsBlueBullets() {
 			if (blueBullets[i].getGlobalBounds().findIntersection(zombie.getZombies()[j].getGlobalBounds()))
 			{
 				zombie.getHpOfZombies()[j] -= 10;
+				zombie.getHpBarOfZombies()[j].setSize({ 1.1f * zombie.getHpOfZombies()[j]  , 10 });
 				blueBullets.erase(blueBullets.begin() + i);
 				if (zombie.getHpOfZombies()[j] <= 0)
 				{
+					zombie.getHpBarOfZombies().erase(zombie.getHpBarOfZombies().begin() + j);
 					zombie.getZombies().erase(zombie.getZombies().begin() + j);
+					zombie.getHpOfZombies().erase(zombie.getHpOfZombies().begin() + j);
 					noOfZombiesDie++;
 				}
 				break;
@@ -367,11 +386,8 @@ void Game::zombiesVsBlueBullets() {
 void Game::isPlayerAlive() {
 
 	for (int i = 0; i < zombie.getZombies().size(); i++) {
-		if (zombie.getZombies()[i].getPosition().x < 300)
+		if (zombie.getZombies()[i].getPosition().x < 200)
 			playerStatus = false;
 	}
 }
 
-int Game::getNumberOfDieZombies() {
-	return noOfZombiesDie;
-}

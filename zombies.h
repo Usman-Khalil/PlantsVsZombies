@@ -35,6 +35,7 @@ public:
 	void spawningOfZombies(RenderWindow&);
 	vector<Sprite>& getZombies();
 	vector<int>& getHpOfZombies();
+	vector<RectangleShape>& getHpBarOfZombies();
 
 
 };
