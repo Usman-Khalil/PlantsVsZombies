@@ -18,7 +18,7 @@ Zombies::Zombies() {
 	zombie = nullptr;
 	zombiesSpawnTime = 0;
 	maxHpOfZombie = 50;
-
+	maxSpawnTime = 1000;
 }
 
 void Zombies::initializeTextureForZombies() {
@@ -45,9 +45,9 @@ void Zombies::drawZombies(RenderWindow& window) {
 
 void Zombies::spawningOfZombies(RenderWindow& window) {
 
-	if (zombiesSpawnTime < (100))
+	if (zombiesSpawnTime < maxSpawnTime)
 		zombiesSpawnTime++;
-	if (zombiesSpawnTime >= (100)) {
+	if (zombiesSpawnTime >= maxSpawnTime) {
 		
 		int rowNum = rand() % 5;
 		if(rowNum == 0)
@@ -71,8 +71,8 @@ void Zombies::spawningOfZombies(RenderWindow& window) {
 
 	for (int i = 0; i < zombies.size(); i++) {
 
-		zombies[i].move({ -5.3f,0 });
-		hpBarForAllZombies[i].move({ -5.3f , 0 });
+		zombies[i].move({ -0.3f,0 });
+		hpBarForAllZombies[i].move({ -0.3f , 0 });
 
 	}
 }

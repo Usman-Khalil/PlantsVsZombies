@@ -59,6 +59,7 @@ public:
 	void zombiesVsGreenBullets();
 	void zombiesVsBlueBullets();
 	void isPlayerAlive();
+	void updateZombiesSpawnTime();
 };
 
 #endif

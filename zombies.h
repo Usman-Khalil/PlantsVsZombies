@@ -26,6 +26,7 @@ class Zombies
 
 	int zombiesSpawnTime;
 	int maxHpOfZombie;
+	int maxSpawnTime;
 
 public:
 
@@ -36,6 +37,7 @@ public:
 	vector<Sprite>& getZombies();
 	vector<int>& getHpOfZombies();
 	vector<RectangleShape>& getHpBarOfZombies();
+	int& getZombieSpawntime();
 
 
 };

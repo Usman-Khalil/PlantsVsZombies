@@ -83,6 +83,7 @@ void Game::initializeGame(RenderWindow& window1) {
 			zombiesVsBlueBullets();
 			zombiesVsGreenBullets();
 			isPlayerAlive();
+			updateZombiesSpawnTime();
 
 			window.clear();
 
@@ -389,5 +390,14 @@ void Game::isPlayerAlive() {
 		if (zombie.getZombies()[i].getPosition().x < 200)
 			playerStatus = false;
 	}
+}
+
+void Game::updateZombiesSpawnTime() {
+	if (noOfZombiesDie == 20)
+		zombie.getZombieSpawntime() -= 10;
+	else if (noOfZombiesDie == 40)
+		zombie.getZombieSpawntime() -= 40;
+	else if (noOfZombiesDie == 100)
+		zombie.getZombieSpawntime() -= 70;
 }
 
