@@ -1,0 +1,99 @@
+#include <iostream>
+#include "SFML\Graphics.hpp"
+#include "SFML\Window.hpp"
+#include "SFML\System.hpp" 
+#include "Lawn.h"
+#include "Plant.h"
+#include "game.h"
+#include <vector>
+#include <string>
+#include "zombies.h"
+#include "projectiles.h"
+#include "main_menu.h"
+
+using namespace std;
+using namespace sf;
+
+Game game;
+
+MainMenu::MainMenu() {
+
+	exitButtonText = nullptr;
+	startButtonText = nullptr;
+	main = nullptr;
+}
+
+void MainMenu::initializeMainMenuTexture() {
+
+	if (!mainTex.loadFromFile("Images/main_menu.jfif"))
+		throw "could not load main_menu.jfif from the file";
+
+	main = make_unique<Sprite>(mainTex);
+	main->setScale({ 1.78 , 1.7 });
+
+	startButton.setSize({ 100 , 40 });
+	startButton.setPosition({ 710 , 600 });
+
+	exitButton.setSize({ 100 , 40 });
+	exitButton.setPosition({ 490 , 600 });
+
+	if (!font.openFromFile("Fonts/BitcountGridDouble_Cursive-Regular.ttf"))
+		throw "could load font front the file";
+
+	startButtonText = make_unique<Text>(font, "Start", 30);
+	startButtonText->setPosition({ startButton.getPosition().x + 8 , startButton.getPosition().y});
+	startButtonText->setFillColor(Color::Red);
+
+	exitButtonText = make_unique<Text>(font, "Exit", 30);
+	exitButtonText->setPosition({ exitButton.getPosition().x + 10 , exitButton.getPosition().y });
+	exitButtonText->setFillColor(Color::Red);
+}
+
+void MainMenu::initialize() {
+
+	RenderWindow window(VideoMode({ 1300 , 700 }) , "Plant_VS_Zombies");
+	window.setFramerateLimit(60);
+
+	initializeMainMenuTexture();
+
+	while (window.isOpen()) {
+
+		while (const optional event = window.pollEvent()) {
+			if (event->is<Event::Closed>())
+				window.close();
+			if (const auto* keyPressed = event->getIf<Event::KeyPressed>()) {
+				if (keyPressed->scancode == Keyboard::Scancode::Escape)
+					window.close();
+			}
+			if (const auto mouseButtonPresed = event->getIf<Event::MouseButtonPressed>()) {
+				if (mouseButtonPresed->button == Mouse::Button::Left) {
+					Vector2f pos;
+					pos.x = Mouse::getPosition().x;
+					pos.y = Mouse::getPosition().y - 40;
+					if (startButton.getGlobalBounds().contains(pos)) {
+						game.initializeGame(window);
+					}
+					else if (exitButton.getGlobalBounds().contains(pos))
+						window.close();
+				}
+			}
+		}
+
+		// Updates Everything here
+
+		window.clear();
+
+		//Draw Objects
+		window.draw(*main);
+		window.draw(startButton);
+		window.draw(exitButton);
+		window.draw(*startButtonText);
+		window.draw(*exitButtonText);
+		window.display();
+
+	}
+}
+
+void MainMenu::closeMainMenu(RenderWindow& window) {
+	window.close();
+}

@@ -44,7 +44,7 @@ public:
 	Game();
 	void droppingFlowers(RenderWindow&);
 	void collectFlowers(Vector2f);
-	void initializeGame();
+	void initializeGame(RenderWindow&);
 	void initializeGameObjects();
 	void selectingPlant(Vector2f);
 	void previewPlant();
@@ -62,3 +62,4 @@ public:
 
 #endif
 #pragma once
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            

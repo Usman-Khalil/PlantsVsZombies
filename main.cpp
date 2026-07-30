@@ -1,9 +1,11 @@
-#include "game.h"
+#include "main_menu.h"
 #include <ctime>
 int main()
 {
     srand(time(0));
-    Game game;
-    game.initializeGame();
+
+    MainMenu main_menu;
+    main_menu.initialize();
+
     return 0;
 }

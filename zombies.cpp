@@ -12,7 +12,6 @@
 using namespace std;
 using namespace sf;
 
-Game game;
 
 Zombies::Zombies() {
 
@@ -46,9 +45,9 @@ void Zombies::drawZombies(RenderWindow& window) {
 
 void Zombies::spawningOfZombies(RenderWindow& window) {
 
-	if (zombiesSpawnTime < (1000 - (2 * game.getNumberOfDieZombies())))
+	if (zombiesSpawnTime < (1000))
 		zombiesSpawnTime++;
-	if (zombiesSpawnTime >= (1000 - (2 * game.getNumberOfDieZombies()))) {
+	if (zombiesSpawnTime >= (1000)) {
 		
 		int rowNum = rand() % 5;
 		if(rowNum == 0)
@@ -85,4 +84,4 @@ vector<Sprite>& Zombies::getZombies() {
 vector<int>& Zombies::getHpOfZombies() {
 
 	return hpOfzombies;
-}
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       

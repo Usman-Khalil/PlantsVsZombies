@@ -145,9 +145,10 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="game.cpp" />
+    <ClCompile Include="game1.cpp" />
     <ClCompile Include="Lawn.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="main_menu.cpp" />
     <ClCompile Include="Plant.cpp" />
     <ClCompile Include="projectiles.cpp" />
     <ClCompile Include="zombies.cpp" />
@@ -155,6 +156,7 @@
   <ItemGroup>
     <ClInclude Include="game.h" />
     <ClInclude Include="Lawn.h" />
+    <ClInclude Include="main_menu.h" />
     <ClInclude Include="Plant.h" />
     <ClInclude Include="projectiles.h" />
     <ClInclude Include="zombies.h" />
