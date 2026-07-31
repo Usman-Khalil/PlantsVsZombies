@@ -40,8 +40,7 @@ void Projectiles::initializeTextureOfProjectiles() {
 		throw "could not load sun.png from the file";
 
 	sunFlower = make_unique<Sprite>(sunFlowerTex);
-	sunFlower->setScale({ 0.012 , 0.012 });
-	sunFlower->setColor(Color(255, 255, 255, 200));
+	sunFlower->setScale({ 0.6 , 0.6 }); 
 
 }
 

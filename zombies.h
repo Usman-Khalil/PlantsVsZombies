@@ -22,12 +22,15 @@ class Zombies
 	vector<Sprite>zombies;
 	vector<int>hpOfzombies;
 
+	Music grassStep;
+
 	RectangleShape hpBar;
 	vector<RectangleShape>hpBarForAllZombies;
 
 	int zombiesSpawnTime;
 	int maxHpOfZombie;
 	int maxSpawnTime;
+
 
 public:
 

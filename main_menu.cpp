@@ -32,22 +32,28 @@ void MainMenu::initializeMainMenuTexture() {
 	main = make_unique<Sprite>(mainTex);
 	main->setScale({ 1.78 , 1.7 });
 
-	startButton.setSize({ 100 , 40 });
+	startButton.setSize({ 100 , 50 });
 	startButton.setPosition({ 710 , 600 });
+	startButton.setFillColor(Color(0, 200, 0));
 
-	exitButton.setSize({ 100 , 40 });
+	exitButton.setSize({ 100 , 50 });
 	exitButton.setPosition({ 490 , 600 });
+	exitButton.setFillColor(Color(0, 200, 0));
 
-	if (!font.openFromFile("Fonts/BitcountGridDouble_Cursive-Regular.ttf"))
+	if (!font.openFromFile("Fonts/RUSTED PERSONAL USE.ttf"))
 		throw "could load font front the file";
 
-	startButtonText = make_unique<Text>(font, "Start", 30);
+	startButtonText = make_unique<Text>(font, "Start", 40);
 	startButtonText->setPosition({ startButton.getPosition().x + 8 , startButton.getPosition().y});
-	startButtonText->setFillColor(Color::Red);
+	startButtonText->setFillColor(Color(184,45,40));
 
-	exitButtonText = make_unique<Text>(font, "Exit", 30);
+	exitButtonText = make_unique<Text>(font, "Exit", 40);
 	exitButtonText->setPosition({ exitButton.getPosition().x + 10 , exitButton.getPosition().y });
-	exitButtonText->setFillColor(Color::Red);
+	exitButtonText->setFillColor(Color(184, 45, 40));
+
+	if (!mainMenu.openFromFile("Music/main.ogg"))
+		throw "could not open main.ogg from the file";
+	mainMenu.setLooping(1000);
 }
 
 void MainMenu::initialize() {
@@ -56,6 +62,8 @@ void MainMenu::initialize() {
 	window.setFramerateLimit(60);
 
 	initializeMainMenuTexture();
+
+	mainMenu.play();
 
 	while (window.isOpen()) {
 
@@ -72,6 +80,7 @@ void MainMenu::initialize() {
 					pos.x = Mouse::getPosition().x;
 					pos.y = Mouse::getPosition().y - 40;
 					if (startButton.getGlobalBounds().contains(pos)) {
+						stopMusic();
 						game.initializeGame(window);
 					}
 					else if (exitButton.getGlobalBounds().contains(pos))
@@ -97,4 +106,8 @@ void MainMenu::initialize() {
 
 void MainMenu::closeMainMenu(RenderWindow& window) {
 	window.close();
+}
+
+void MainMenu::stopMusic() {
+	mainMenu.stop();
 }

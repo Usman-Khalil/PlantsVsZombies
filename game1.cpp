@@ -55,6 +55,7 @@ void Game::initializeGame(RenderWindow& window1) {
 	RenderWindow window(VideoMode({ 1300 , 700 }), "Plant_VS_Zombies");
 	window.setFramerateLimit(60);
 
+	bgMusic.play();
 	while (window.isOpen()) {
 
 		while (const optional event = window.pollEvent()) {
@@ -72,6 +73,7 @@ void Game::initializeGame(RenderWindow& window1) {
 			}
 		}
 		if (playerStatus) {
+
 			// Updates Everything here
 
 			droppingFlowers(window);
@@ -134,7 +136,7 @@ void Game::initializeGameObjects() {
 		throw "could not load sun.png from the file";
 
 	flower = make_unique<Sprite>(flowerTex);
-	flower->setScale({ 0.01 , 0.01 });
+	flower->setScale({ 0.5 , 0.5 });
 
 	if (!font.openFromFile("Fonts/Magnificent Nightmare.ttf"))
 		throw "could not load font from the file";
@@ -168,6 +170,12 @@ void Game::loadMusicFromFIle() {
 
 	if (!looseMusic.openFromFile("Music/losemusic.ogg"))
 		throw "could not open losemusic.ogg from the file";
+
+	if (!bgMusic.openFromFile("Music/bg_2.flac"))
+		throw "could not open bg_2.flac from the file";
+
+	bgMusic.setLooping(10);
+	bgMusic.setVolume(10);
 }
 
 void Game::droppingFlowers(RenderWindow& window) {
@@ -423,8 +431,10 @@ void Game::zombiesVsBlueBullets() {
 void Game::isPlayerAlive() {
 
 	for (int i = 0; i < zombie.getZombies().size(); i++) {
-		if (zombie.getZombies()[i].getPosition().x < 200)
+		if (zombie.getZombies()[i].getPosition().x < 200) {
 			playerStatus = false;
+			bgMusic.stop();
+		}
 	}
 }
 

@@ -26,6 +26,7 @@ class Game
 	Music collectFlowersMusic;
 	Music produceFlowersMusic;
 	Music looseMusic;
+	Music bgMusic;
 
 	unique_ptr<Sprite>flower;
 	unique_ptr<Sprite>activePlant;

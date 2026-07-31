@@ -32,6 +32,9 @@ void Zombies::initializeTextureForZombies() {
 
 	hpBar.setSize({ (float)(1.1 * maxHpOfZombie) , 10 });
 	hpBar.setFillColor(Color::Red);
+
+	if (!grassStep.openFromFile("Music/zombiesComing.ogg"))
+		throw "could not open zombiesComing.ogg from the file";
 }
 
 void Zombies::drawZombies(RenderWindow& window) {
@@ -72,6 +75,7 @@ void Zombies::spawningOfZombies(RenderWindow& window) {
 
 	for (int i = 0; i < zombies.size(); i++) {
 
+		grassStep.play();
 		zombies[i].move({ -0.3f,0 });
 		hpBarForAllZombies[i].move({ -0.3f , 0 });
 

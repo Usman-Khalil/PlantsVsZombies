@@ -21,6 +21,8 @@ class MainMenu
 	Texture mainTex;
 	Font font;
 
+	Music mainMenu;
+
 	unique_ptr<Sprite>main;
 	unique_ptr<Text>exitButtonText;
 	unique_ptr<Text>startButtonText;
@@ -28,12 +30,14 @@ class MainMenu
 	RectangleShape startButton;
 	RectangleShape exitButton;
 
+
 public:
 
 	MainMenu();
 	void initializeMainMenuTexture();
 	void initialize();
 	void closeMainMenu(RenderWindow&);
+	void stopMusic();
 };
 
 

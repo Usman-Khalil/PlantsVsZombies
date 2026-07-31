@@ -71,16 +71,16 @@ void Plant::initializeTextureForPlants() {
 	priceBar->setPosition({ greenPlant->getPosition().x + 8 ,greenPlant->getPosition().y + greenPlant->getGlobalBounds().size.y + 3 });
 
 	//AmountBar
-
-	amountBar = make_unique<Sprite>(priceBarTex);
-	amountBar->setScale({ 0.10 , 0.20 });
+	if (!amountBarTex.loadFromFile("Images/sun_bar.png"))
+		throw "could not load";
+	amountBar = make_unique<Sprite>(amountBarTex);
 	amountBar->setPosition({ greenPlant->getPosition().x + 20 , priceBar->getPosition().y + priceBar->getGlobalBounds().size.y + 22 });
 
 }
 
 void Plant::initializeFontsForPlants() {
 
-	if (!font.openFromFile("Fonts/Ubuntu-Medium.ttf"))
+	if (!font.openFromFile("Fonts/Nosifer-Regular.ttf"))
 		throw "could not load font from the file.";
 
 	//Green
@@ -104,7 +104,8 @@ void Plant::initializeFontsForPlants() {
 	//Amount
 
 	amount = make_unique<Text>(font, to_string(numOfSunFlower) , 20);
-	amount->setPosition({ greenPlant->getPosition().x + 25 , priceBar->getPosition().y + priceBar->getGlobalBounds().size.y + 32 });
+	amount->setOrigin({ amount->getLocalBounds().size.x / 2 , amount->getLocalBounds().size.y / 2 });
+	amount->setPosition({ amountBar->getLocalBounds().size.x / 2 + 50 , amountBar->getLocalBounds().size.y / 2 + 170 });
 	amount->setFillColor(Color::Black);
 
 }
