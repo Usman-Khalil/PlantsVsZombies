@@ -73,14 +73,6 @@ If you encounter missing DLL errors, either copy the SFML runtime DLLs to the ex
 
 Refer to `architecture.txt` for an ASCII flow diagram and more details.
 
-## Notes & Recommendations
-
-- Code style: several headers currently use "using namespace std;" and "using namespace sf;" — these are best kept inside .cpp files to avoid leaking symbols into other translation units.
-- Error handling: texture/font/audio loading currently throws string literals (e.g., `throw "could not load ..."`). Consider replacing these with `std::runtime_error` for clearer exception typing and diagnostics.
-- Includes: use forward slashes in includes (e.g., `#include "SFML/Graphics.hpp"`) for portability.
-- SFML DLLs are committed to the repository for convenience. For a cleaner repo history and smaller size consider moving these to GitHub Releases or an artifacts location and documenting the required runtime versions in the README.
-- Add a LICENSE file to clarify reuse and contribution rules.
-
 ## Troubleshooting
 
 - Black screen or missing assets: ensure `Images/` and `Fonts/` are in the working directory with the executable and that file names match (case-sensitive on some systems).
@@ -95,24 +87,8 @@ Contributions are welcome. If you want to contribute:
 2. Create a feature branch for your changes.
 3. Open a pull request describing your changes.
 
-Suggested improvements:
-- Replace raw string throws with `std::runtime_error`.
-- Remove or relocate committed SFML binaries and provide a clear setup guide for external SDK.
-- Improve resource management to avoid copying SFML textures/sprites accidentally.
-- Add unit tests for non-graphics logic (e.g., resource counters, spawning logic).
-
-## License
-
-This project does not include a LICENSE file yet. If you want others to reuse or contribute, add a license (for example, MIT, Apache-2.0, or GPL) in a top-level `LICENSE` file.
-
 ## Contact
 
 Author: Usman-Khalil
 GitHub: https://github.com/Usman-Khalil
 
----
-
-If you'd like, I can also:
-- Add screenshots (place them in Images/ and update README with image links).
-- Produce a small PR that also updates headers to move `using namespace` out of header files and replace string throws with std::runtime_error in a few files.
-- Add a LICENSE file (you can pick the license text and I will add it).
