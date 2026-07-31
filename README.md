@@ -60,21 +60,7 @@ If you encounter missing DLL errors, either copy the SFML runtime DLLs to the ex
   - Press Esc to close the main menu or exit the game.
 - Objective: Prevent zombies from reaching the house by placing plants strategically and collecting resources.
 - Resource: Flowers / suns appear during gameplay — click them to collect and use them to place more plants.
-
-## Project structure (important files & folders)
-
-- main.cpp - program entry.
-- main_menu.* - initializes the window and main menu.
-- game.cpp / game.h - main game loop and orchestration.
-- Plant.h / Plant.cpp - plant sprites, costs, HUD elements, and spawn/selection logic.
-- zombies.h / zombies.cpp - zombie sprites, spawning, movement, and HP management.
-- projectiles.h / projectiles.cpp - projectile sprites and behaviors.
-- Lawn.h / Lawn.cpp - background and lawn rendering.
-- Images/ - art assets (sprites and textures).
-- Fonts/ - font files used by HUD and menus.
-- Music/ - audio assets (background music and effects).
-- Plants_vs_Zombies.vcxproj / Plants_vs_Zombies.slnx - Visual Studio project and solution.
-- architecture.txt - high-level architecture and game loop notes.
+  
 
 ## Architecture overview
 
@@ -84,11 +70,7 @@ If you encounter missing DLL errors, either copy the SFML runtime DLLs to the ex
 
 Refer to `architecture.txt` for an ASCII flow diagram and more details.
 
-## Screenshots
-
-The following screenshots were added to document the project UI and gameplay. These images are stored in the repository under `ScreenShots/`.
-
-
+## Screenshots 
 ### main_menu.png
 
 ![Main Menu](ScreenShots/main_menu.png)
