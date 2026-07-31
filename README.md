@@ -2,11 +2,18 @@
 
 A student / hobby implementation of a Plants vs. Zombies–style tower-defense game implemented in C++ using SFML and built with Visual Studio.
 
+## 💻 Tech Stack:
+
+## ◈ Languages
+<div align="center">
+  ![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white) ![SFML](https://img.shields.io/badge/SFML-%2300ADEF.svg?style=for-the-badge) ![OOP](https://img.shields.io/badge/OOP-%23007ACC.svg?style=for-the-badge) ![Visual Studio](https://img.shields.io/badge/Visual%20Studio-%23007ACC.svg?style=for-the-badge&logo=visual-studio&logoColor=white) ![STL](https://img.shields.io/badge/STL-%23000000.svg?style=for-the-badge)
+</div>
+
 ## Project summary
 
-This repository contains a small, self-contained Windows game inspired by Plants vs. Zombies. The player places plants on a lawn to stop waves of zombies from reaching the house. The game includes plant selection and placement, automatic plant attacks, projectiles, collectible suns/flowers, zombie waves with HP and simple AI, and a HUD for resources and controls.
+This repository contains a small, self-contained Windows game inspired by Plants vs. Zombies. The player places plants on a lawn to stop waves of zombies from reaching the house. The game includes [...]
 
-The codebase is written in modern C++ (Visual Studio solution and project files are provided) and uses the SFML library for graphics, audio, windowing, and input. Runtime SFML DLLs and basic assets (Images/, Fonts/, Music/) are included so the project can be built and executed quickly on a compatible Windows machine.
+The codebase is written in modern C++ (Visual Studio solution and project files are provided) and uses the SFML library for graphics, audio, windowing, and input. Runtime SFML DLLs and basic assets[...] 
 
 This project is intended as an educational/hobby implementation and demonstrates basic game loop design, simple managers (plants, zombies, bullets, suns), collision handling, and asset loading.
 
@@ -23,7 +30,7 @@ This project is intended as an educational/hobby implementation and demonstrates
 
 - Windows (Visual Studio-targeted project files).
 - Visual Studio 2019 or 2022 (recommended) or any MSVC toolchain compatible with the included .vcxproj.
-- SFML runtime libraries (SFML DLLs are included in the repository). If you prefer to use an installed SFML SDK, make sure the project links against the SDK and that the matching DLLs are available alongside the built executable.
+- SFML runtime libraries (SFML DLLs are included in the repository). If you prefer to use an installed SFML SDK, make sure the project links against the SDK and that the matching DLLs are availabl[...]
 
 Note: The included SFML DLLs are present for convenience. Make sure you match the project platform (x86 vs x64) and Debug vs Release configuration to the DLLs you use.
 
