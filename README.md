@@ -86,32 +86,32 @@ Refer to `architecture.txt` for an ASCII flow diagram and more details.
 
 ## Screenshots
 
-The following screenshots were added to document the project UI and gameplay. File references assume the images are placed under `Images/` at the repository root.
+The following screenshots were added to document the project UI and gameplay. File references assume the images are placed under `Assets/` at the repository root.
 
 
 ### main_menu.png
-![Main Menu](Images/main_menu.png)
+![Main Menu](Assets/main_menu.png)
 Main menu screen showing the game background, Start button, and quick-access buttons (Help, Shop, Get More Coins). A player name tag and the Zen Garden are visible at the edges of the menu.
 
 
 ### game_over.png
-![Game Over](Images/game_over.png)
+![Game Over](Assets/game_over.png)
 Game over screen with the large red message “THE ZOMBIES ATE YOUR BRAINS!” displayed across the lawn, indicating the player failed to stop the zombie wave.
 
 
 ### gameplay.png
-![Gameplay](Images/gameplay.png)
+![Gameplay](Assets/gameplay.png)
 In-game action showing planted sunflowers and peashooters on the lawn, zombies approaching from the right, and HUD elements (sun counter and plant cost slots) on the left.
 
 
 ### hud_interface.png
-![HUD / Interface](Images/hud_interface.png)
+![HUD / Interface](Assets/hud_interface.png)
 Close-up of the HUD and lawn grid with the sun counter visible; useful for documenting resource collection and plant placement behavior.
 
 
 ### menu_empty.png
-![Menu Empty](Images/menu_empty.png)
+![Menu Empty](Assets/menu_empty.png)
 Stone-framed empty menu/panel graphic with a skull ornament at the top and a red “BACK TO MENU” button — suitable for pause/summary screens.
 
 
-If you would like me to also commit the image files themselves into `Images/`, I can add them now. If you want the images added, please confirm and I will upload the five files you provided (they will be saved as `Images/main_menu.png`, `Images/game_over.png`, `Images/gameplay.png`, `Images/hud_interface.png`, and `Images/menu_empty.png`).
+If you would like me to also commit the image files themselves into `Assets/`, I can add them now. Please confirm and I will upload the five files you provided (they will be saved as `Assets/main_menu.png`, `Assets/game_over.png`, `Assets/gameplay.png`, `Assets/hud_interface.png`, and `Assets/menu_empty.png`).
