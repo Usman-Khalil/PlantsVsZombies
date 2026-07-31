@@ -1,9 +1,9 @@
 #ifndef MAIN_MENU_H
 #define MAIN_MENU_H
 #include <iostream>
-#include "SFML\Graphics.hpp"
-#include "SFML\Window.hpp"
-#include "SFML\System.hpp" 
+#include "SFML/Graphics.hpp"
+#include "SFML/Window.hpp"
+#include "SFML/System.hpp" 
 #include "Lawn.h"
 #include "Plant.h"
 #include "game.h"
