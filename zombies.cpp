@@ -20,6 +20,7 @@ Zombies::Zombies() {
 	zombiesSpawnTime = 0;
 	maxHpOfZombie = 50;
 	maxSpawnTime = 1000;
+	musicPlayed = false;
 }
 
 void Zombies::initializeTextureForZombies() {
@@ -65,6 +66,10 @@ void Zombies::spawningOfZombies(RenderWindow& window) {
 		else
 			zombie->setPosition({ static_cast<float>(window.getSize().x) , 580 });
 		
+		if (!musicPlayed) {
+			grassStep.play();
+			musicPlayed = true;
+		}
 		hpBar.setPosition({ zombie->getPosition().x , zombie->getPosition().y - 15 });
 		hpBarForAllZombies.push_back(hpBar);
 		zombies.push_back(*zombie);
@@ -75,7 +80,6 @@ void Zombies::spawningOfZombies(RenderWindow& window) {
 
 	for (int i = 0; i < zombies.size(); i++) {
 
-		grassStep.play();
 		zombies[i].move({ -0.3f,0 });
 		hpBarForAllZombies[i].move({ -0.3f , 0 });
 

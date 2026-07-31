@@ -16,6 +16,7 @@ class Game
 {
 	Texture flowerTex;
 	Texture activePlantTex;
+	Texture menuTex;
 
 	Font font;
 
@@ -26,11 +27,15 @@ class Game
 	Music collectFlowersMusic;
 	Music produceFlowersMusic;
 	Music looseMusic;
+	Music deadMusic;
 	Music bgMusic;
+	Music zombieDeadMusic;
 
 	unique_ptr<Sprite>flower;
 	unique_ptr<Sprite>activePlant;
+	unique_ptr<Sprite>menu;
 	unique_ptr<Text>gameOverText;
+	unique_ptr<Text>backToMenuText;
 
 	vector<Sprite>flowers;
 	vector<Sprite>placedPlants;
@@ -52,6 +57,7 @@ class Game
 	bool playerStatus;
 	int noOfZombiesDie;
 	bool musicPlayed;
+	int playerDeadTime;
 
 public:
 
@@ -72,6 +78,7 @@ public:
 	void zombiesVsBlueBullets();
 	void isPlayerAlive();
 	void updateZombiesSpawnTime();
+	void clearingTheGame();
 };
 
 #endif

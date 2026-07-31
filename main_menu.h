@@ -19,22 +19,23 @@ using namespace sf;
 class MainMenu
 {
 	Texture mainTex;
+	Texture loadingTex;
+	Texture bgTex;
 	Font font;
 
 	Music mainMenu;
 
 	unique_ptr<Sprite>main;
-	unique_ptr<Text>exitButtonText;
+	unique_ptr<Sprite>loading;
+	unique_ptr<Sprite>bg;
 	unique_ptr<Text>startButtonText;
 
-	RectangleShape startButton;
-	RectangleShape exitButton;
-
+	int loadingTime;
 
 public:
 
 	MainMenu();
-	void initializeMainMenuTexture();
+	void initializeMainMenuTexture(RenderWindow&);
 	void initialize();
 	void closeMainMenu(RenderWindow&);
 	void stopMusic();

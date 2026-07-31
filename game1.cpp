@@ -36,6 +36,7 @@ Game::Game() {
 	gameOverText = nullptr;
 	activeStatus = false;
 	musicPlayed = false;
+	playerDeadTime = 0;
 }
 
 void Game::initializeGame(RenderWindow& window1) {
@@ -120,12 +121,38 @@ void Game::initializeGame(RenderWindow& window1) {
 
 		}
 		else {
-			if (!musicPlayed) {
-				looseMusic.play();
-				musicPlayed = true;
+			if (playerDeadTime <= 180) {
+				if (!musicPlayed) {
+					deadMusic.play();
+					musicPlayed = true;
+				}
+				gameOverText->setPosition({ static_cast<float>(window.getSize().x / 2) , static_cast<float>(window.getSize().y / 2) });
+				window.draw(*gameOverText);
+				playerDeadTime++;
+				if (playerDeadTime > 180)
+					musicPlayed = false;
 			}
-			gameOverText->setPosition({ static_cast<float>(window.getSize().x / 2) , static_cast<float>(window.getSize().y / 2) });
-			window.draw(*gameOverText);
+			else {
+				window.clear();
+				if (!musicPlayed) {
+					looseMusic.play();
+					musicPlayed = true;
+				}
+				menu->setPosition({ static_cast<float>(window.getSize().x / 2) , static_cast<float>(window.getSize().y / 2) });
+				backToMenuText->setPosition({ static_cast<float>(window.getSize().x / 2) - 100 , 500 });
+				window.draw(*menu);
+				window.draw(*backToMenuText);
+				if (Mouse::isButtonPressed(Mouse::Button::Left)) {
+					Vector2f pos;
+					pos.x = Mouse::getPosition().x;
+					pos.y = Mouse::getPosition().y;
+					if (backToMenuText->getGlobalBounds().contains(pos)) {
+						bgMusic.stop();
+						window.close();
+						main_menu.initialize();
+					}
+				}
+			}
 		}
 		window.display();
 	}
@@ -144,6 +171,15 @@ void Game::initializeGameObjects() {
 	gameOverText = make_unique<Text>(font, "THE  ZOMBIES \n    ATE YOUR \n     BRAINS!" , 80);
 	gameOverText->setFillColor(Color(225,0, 0 , 255));
 	gameOverText->setOrigin({ gameOverText->getLocalBounds().size.x / 2 , gameOverText->getLocalBounds().size.y / 2 });
+
+	if (!menuTex.loadFromFile("Images/main.png"))
+		throw "could not load main.png from the file";
+
+	menu = make_unique<Sprite>(menuTex);
+	menu->setOrigin({ menu->getLocalBounds().size.x / 2 , menu->getLocalBounds().size.y / 2 });
+
+	backToMenuText = make_unique<Text>(font, "Back To Menu", 20);
+	backToMenuText->setFillColor(Color(225, 0, 0, 255));
 
 }
 
@@ -171,8 +207,14 @@ void Game::loadMusicFromFIle() {
 	if (!looseMusic.openFromFile("Music/losemusic.ogg"))
 		throw "could not open losemusic.ogg from the file";
 
+	if (!deadMusic.openFromFile("Music/playerDead.ogg"))
+		throw "could not open playerDead.ogg from the file";
+
 	if (!bgMusic.openFromFile("Music/bg_2.flac"))
 		throw "could not open bg_2.flac from the file";
+
+	if (!zombieDeadMusic.openFromFile("Music/zombieDead.mp3"))
+		throw "could not open zombieDead.mp3 from the file";
 
 	bgMusic.setLooping(10);
 	bgMusic.setVolume(10);
@@ -394,6 +436,7 @@ void Game::zombiesVsGreenBullets() {
 				greenBullets.erase(greenBullets.begin() + i);
 				if (zombie.getHpOfZombies()[j] <= 0)
 				{
+					zombieDeadMusic.play();
 					zombie.getZombies().erase(zombie.getZombies().begin() + j);
 					zombie.getHpOfZombies().erase(zombie.getHpOfZombies().begin() + j);
 					zombie.getHpBarOfZombies().erase(zombie.getHpBarOfZombies().begin() + j);
@@ -417,6 +460,7 @@ void Game::zombiesVsBlueBullets() {
 				blueBullets.erase(blueBullets.begin() + i);
 				if (zombie.getHpOfZombies()[j] <= 0)
 				{
+					zombieDeadMusic.play();
 					zombie.getHpBarOfZombies().erase(zombie.getHpBarOfZombies().begin() + j);
 					zombie.getZombies().erase(zombie.getZombies().begin() + j);
 					zombie.getHpOfZombies().erase(zombie.getHpOfZombies().begin() + j);
@@ -448,4 +492,3 @@ void Game::updateZombiesSpawnTime() {
 
 	zombie.getZombieSpawntime() = max(300, zombie.getZombieSpawntime());
 }
-

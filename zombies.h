@@ -30,6 +30,7 @@ class Zombies
 	int zombiesSpawnTime;
 	int maxHpOfZombie;
 	int maxSpawnTime;
+	bool musicPlayed;
 
 
 public:

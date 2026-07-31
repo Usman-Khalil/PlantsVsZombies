@@ -19,40 +19,45 @@ Game game;
 
 MainMenu::MainMenu() {
 
-	exitButtonText = nullptr;
 	startButtonText = nullptr;
 	main = nullptr;
+	loadingTime = 0;
 }
 
-void MainMenu::initializeMainMenuTexture() {
+void MainMenu::initializeMainMenuTexture(RenderWindow& window) {
 
-	if (!mainTex.loadFromFile("Images/main_menu.jfif"))
-		throw "could not load main_menu.jfif from the file";
+	if (!mainTex.loadFromFile("Images/main.png"))
+		throw "could not load main.png from the file";
 
 	main = make_unique<Sprite>(mainTex);
-	main->setScale({ 1.78 , 1.7 });
+	main->setOrigin({ main->getLocalBounds().size.x / 2 , main->getLocalBounds().size.y / 2 });
+	main->setPosition({ static_cast<float>(window.getSize().x / 2) , static_cast<float>(window.getSize().y / 2) });
 
-	startButton.setSize({ 100 , 50 });
-	startButton.setPosition({ 710 , 600 });
-	startButton.setFillColor(Color(0, 200, 0));
+	if (!loadingTex.loadFromFile("Images/loading.png"))
+		throw "could not load loading.png from the file";
 
-	exitButton.setSize({ 100 , 50 });
-	exitButton.setPosition({ 490 , 600 });
-	exitButton.setFillColor(Color(0, 200, 0));
+	loading = make_unique<Sprite>(loadingTex);
+	loading->setScale({ 0.865 , 1 });
 
-	if (!font.openFromFile("Fonts/RUSTED PERSONAL USE.ttf"))
+	if (!font.openFromFile("Fonts/Coraline's Cat.otf"))
 		throw "could load font front the file";
 
-	startButtonText = make_unique<Text>(font, "Start", 40);
-	startButtonText->setPosition({ startButton.getPosition().x + 8 , startButton.getPosition().y});
+	startButtonText = make_unique<Text>(font, "Start", 30);
+	startButtonText->setOrigin({ startButtonText->getLocalBounds().size.x / 2 , startButtonText->getLocalBounds().size.y / 2 });
+	startButtonText->setPosition({ static_cast<float>(window.getSize().x / 2)  , 510});
 	startButtonText->setFillColor(Color(184,45,40));
-
-	exitButtonText = make_unique<Text>(font, "Exit", 40);
-	exitButtonText->setPosition({ exitButton.getPosition().x + 10 , exitButton.getPosition().y });
-	exitButtonText->setFillColor(Color(184, 45, 40));
 
 	if (!mainMenu.openFromFile("Music/main.ogg"))
 		throw "could not open main.ogg from the file";
+
+	if (!bgTex.loadFromFile("Images/main_menu.png"))
+		throw "could not load main_menu.png from the file";
+
+	bg = make_unique<Sprite>(bgTex);
+	bg->setOrigin({ bg->getLocalBounds().size.x / 2 , bg->getLocalBounds().size.y / 2 });
+	bg->setPosition({ static_cast<float>(window.getSize().x / 2) , static_cast<float>(window.getSize().y / 2) });
+	bg->setScale({ 0.86 , 0.97 });
+
 	mainMenu.setLooping(1000);
 }
 
@@ -61,7 +66,7 @@ void MainMenu::initialize() {
 	RenderWindow window(VideoMode({ 1300 , 700 }) , "Plant_VS_Zombies");
 	window.setFramerateLimit(60);
 
-	initializeMainMenuTexture();
+	initializeMainMenuTexture(window);
 
 	mainMenu.play();
 
@@ -79,12 +84,10 @@ void MainMenu::initialize() {
 					Vector2f pos;
 					pos.x = Mouse::getPosition().x;
 					pos.y = Mouse::getPosition().y - 40;
-					if (startButton.getGlobalBounds().contains(pos)) {
+					if (startButtonText->getGlobalBounds().contains(pos)) {
 						stopMusic();
 						game.initializeGame(window);
 					}
-					else if (exitButton.getGlobalBounds().contains(pos))
-						window.close();
 				}
 			}
 		}
@@ -94,13 +97,17 @@ void MainMenu::initialize() {
 		window.clear();
 
 		//Draw Objects
-		window.draw(*main);
-		window.draw(startButton);
-		window.draw(exitButton);
-		window.draw(*startButtonText);
-		window.draw(*exitButtonText);
-		window.display();
+		if (loadingTime <= 360) {
+			window.draw(*loading);
+			loadingTime++;
+		}
+		else {
 
+			window.draw(*bg);
+			window.draw(*main);
+			window.draw(*startButtonText);
+		}
+		window.display();
 	}
 }
 
