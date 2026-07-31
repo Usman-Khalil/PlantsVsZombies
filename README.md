@@ -15,9 +15,9 @@ A student / hobby implementation of a Plants vs. Zombies–style tower-defense g
 
 ## Project summary
 
-This repository contains a small, self-contained Windows game inspired by Plants vs. Zombies. The player places plants on a lawn to stop waves of zombies from reaching the house. The game includes [...]
+This repository contains a small, self-contained Windows game inspired by Plants vs. Zombies. The player places plants on a lawn to stop waves of zombies from reaching the house. The game includes basic plant types, zombie waves, resource collection, and simple projectile mechanics.
 
-The codebase is written in modern C++ (Visual Studio solution and project files are provided) and uses the SFML library for graphics, audio, windowing, and input. Runtime SFML DLLs and basic assets[...] 
+The codebase is written in modern C++ (Visual Studio solution and project files are provided) and uses the SFML library for graphics, audio, windowing, and input. Runtime SFML DLLs and basic assets are included for convenience.
 
 This project is intended as an educational/hobby implementation and demonstrates basic game loop design, simple managers (plants, zombies, bullets, suns), collision handling, and asset loading.
 
@@ -34,7 +34,7 @@ This project is intended as an educational/hobby implementation and demonstrates
 
 - Windows (Visual Studio-targeted project files).
 - Visual Studio 2019 or 2022 (recommended) or any MSVC toolchain compatible with the included .vcxproj.
-- SFML runtime libraries (SFML DLLs are included in the repository). If you prefer to use an installed SFML SDK, make sure the project links against the SDK and that the matching DLLs are availabl[...]
+- SFML runtime libraries (SFML DLLs are included in the repository). If you prefer to use an installed SFML SDK, make sure the project links against the SDK and that the matching DLLs are available.
 
 Note: The included SFML DLLs are present for convenience. Make sure you match the project platform (x86 vs x64) and Debug vs Release configuration to the DLLs you use.
 
@@ -84,22 +84,34 @@ If you encounter missing DLL errors, either copy the SFML runtime DLLs to the ex
 
 Refer to `architecture.txt` for an ASCII flow diagram and more details.
 
-## Troubleshooting
+## Screenshots
 
-- Black screen or missing assets: ensure `Images/` and `Fonts/` are in the working directory with the executable and that file names match (case-sensitive on some systems).
-- Build/link errors: configure Visual Studio include and linker settings for SFML if you installed SFML separately.
-- Platform mismatch: ensure you use the platform configuration (x86 vs x64) that matches your SFML binaries.
+The following screenshots were added to document the project UI and gameplay. File references assume the images are placed under `Images/` at the repository root.
 
-## Contributing
 
-Contributions are welcome. If you want to contribute:
+### main_menu.png
+![Main Menu](Images/main_menu.png)
+Main menu screen showing the game background, Start button, and quick-access buttons (Help, Shop, Get More Coins). A player name tag and the Zen Garden are visible at the edges of the menu.
 
-1. Fork the repo.
-2. Create a feature branch for your changes.
-3. Open a pull request describing your changes.
 
-## Contact
+### game_over.png
+![Game Over](Images/game_over.png)
+Game over screen with the large red message “THE ZOMBIES ATE YOUR BRAINS!” displayed across the lawn, indicating the player failed to stop the zombie wave.
 
-Author: Usman-Khalil
-GitHub: https://github.com/Usman-Khalil
 
+### gameplay.png
+![Gameplay](Images/gameplay.png)
+In-game action showing planted sunflowers and peashooters on the lawn, zombies approaching from the right, and HUD elements (sun counter and plant cost slots) on the left.
+
+
+### hud_interface.png
+![HUD / Interface](Images/hud_interface.png)
+Close-up of the HUD and lawn grid with the sun counter visible; useful for documenting resource collection and plant placement behavior.
+
+
+### menu_empty.png
+![Menu Empty](Images/menu_empty.png)
+Stone-framed empty menu/panel graphic with a skull ornament at the top and a red “BACK TO MENU” button — suitable for pause/summary screens.
+
+
+If you would like me to also commit the image files themselves into `Images/`, I can add them now. If you want the images added, please confirm and I will upload the five files you provided (they will be saved as `Images/main_menu.png`, `Images/game_over.png`, `Images/gameplay.png`, `Images/hud_interface.png`, and `Images/menu_empty.png`).
