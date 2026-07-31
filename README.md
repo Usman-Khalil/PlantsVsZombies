@@ -3,10 +3,14 @@
 A student / hobby implementation of a Plants vs. Zombies–style tower-defense game implemented in C++ using SFML and built with Visual Studio.
 
 ## 💻 Tech Stack:
-
-## ◈ Languages
 <div align="center">
-  ![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white) ![SFML](https://img.shields.io/badge/SFML-%2300ADEF.svg?style=for-the-badge) ![OOP](https://img.shields.io/badge/OOP-%23007ACC.svg?style=for-the-badge) ![Visual Studio](https://img.shields.io/badge/Visual%20Studio-%23007ACC.svg?style=for-the-badge&logo=visual-studio&logoColor=white) ![STL](https://img.shields.io/badge/STL-%23000000.svg?style=for-the-badge)
+  
+  ![C++](https://img.shields.io/badge/c++-%23E34F26.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white) 
+  ![SFML](https://img.shields.io/badge/SFML-%23F05033.svg?style=for-the-badge) 
+  ![OOP](https://img.shields.io/badge/OOP-%23007ACC.svg?style=for-the-badge)  
+  ![Visual Studio](https://img.shields.io/badge/Visual%20Studio-%230A0FFF.svg?style=for-the-badge&logo=visual-studio&logoColor=white) 
+  ![STL](https://img.shields.io/badge/STL-%23000000.svg?style=for-the-badge)
+  
 </div>
 
 ## Project summary
