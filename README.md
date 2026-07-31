@@ -15,9 +15,9 @@ A student / hobby implementation of a Plants vs. Zombies–style tower-defense g
 
 ## Project summary
 
-This repository contains a small, self-contained Windows game inspired by Plants vs. Zombies. The player places plants on a lawn to stop waves of zombies from reaching the house. The game includes basic plant types, zombie waves, resource collection, and simple projectile mechanics.
+This repository contains a small, self-contained Windows game inspired by Plants vs. Zombies. The player places plants on a lawn to stop waves of zombies from reaching the house. The game includes simple AI for zombies, projectile attacks, and resource collection.
 
-The codebase is written in modern C++ (Visual Studio solution and project files are provided) and uses the SFML library for graphics, audio, windowing, and input. Runtime SFML DLLs and basic assets are included for convenience.
+The codebase is written in modern C++ (Visual Studio solution and project files are provided) and uses the SFML library for graphics, audio, windowing, and input. Runtime SFML DLLs and basic asset placeholders are included for convenience.
 
 This project is intended as an educational/hobby implementation and demonstrates basic game loop design, simple managers (plants, zombies, bullets, suns), collision handling, and asset loading.
 
@@ -86,32 +86,41 @@ Refer to `architecture.txt` for an ASCII flow diagram and more details.
 
 ## Screenshots
 
-The following screenshots were added to document the project UI and gameplay. File references assume the images are placed under `Assets/` at the repository root.
+The following screenshots were added to document the project UI and gameplay. These images are stored in the repository under `ScreenShots/`.
 
 
 ### main_menu.png
-![Main Menu](Assets/main_menu.png)
-Main menu screen showing the game background, Start button, and quick-access buttons (Help, Shop, Get More Coins). A player name tag and the Zen Garden are visible at the edges of the menu.
+
+![Main Menu](ScreenShots/main_menu.png)
+
+Main menu screen showing the game background and Start button.
 
 
-### game_over.png
-![Game Over](Assets/game_over.png)
-Game over screen with the large red message “THE ZOMBIES ATE YOUR BRAINS!” displayed across the lawn, indicating the player failed to stop the zombie wave.
+### gameOver.png
+
+![Game Over](ScreenShots/gameOver.png)
+
+Game over screen with a large message indicating the player failed to stop the zombie wave.
 
 
-### gameplay.png
-![Gameplay](Assets/gameplay.png)
-In-game action showing planted sunflowers and peashooters on the lawn, zombies approaching from the right, and HUD elements (sun counter and plant cost slots) on the left.
+### fight.png
+
+![In-Game Fight](ScreenShots/fight.png)
+
+In-game action showing plants and zombies during gameplay.
 
 
-### hud_interface.png
-![HUD / Interface](Assets/hud_interface.png)
-Close-up of the HUD and lawn grid with the sun counter visible; useful for documenting resource collection and plant placement behavior.
+### interface.png
+
+![Interface / HUD](ScreenShots/interface.png)
+
+Close-up of the HUD and lawn grid with the sun counter and plant cost slots.
 
 
-### menu_empty.png
-![Menu Empty](Assets/menu_empty.png)
-Stone-framed empty menu/panel graphic with a skull ornament at the top and a red “BACK TO MENU” button — suitable for pause/summary screens.
+### playerDead.png
+
+![Player Dead / Menu](ScreenShots/playerDead.png)
+
+Screenshot showing the player-death / pause menu screen.
 
 
-If you would like me to also commit the image files themselves into `Assets/`, I can add them now. Please confirm and I will upload the five files you provided (they will be saved as `Assets/main_menu.png`, `Assets/game_over.png`, `Assets/gameplay.png`, `Assets/hud_interface.png`, and `Assets/menu_empty.png`).
